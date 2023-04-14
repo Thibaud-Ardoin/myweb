@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/myweb/vite.svg" />
+    <link rel="icon" type="image/png" href="favicon/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-    <script type="module" crossorigin src="/myweb/assets/index-d7206fad.js"></script>
-    <link rel="stylesheet" href="/myweb/assets/index-5559cbf2.css">
+    <title> Thibaud </title>
+    <script type="module" crossorigin src="/myweb/assets/index-5150b0c6.js"></script>
+    <link rel="stylesheet" href="/myweb/assets/index-0e256a8f.css">
   </head>
   <body>
     <div id="app"></div>
@@ -18,16 +18,14 @@
       <header>
         <h1>Thibaud Ardoin</h1>
         <p> This is my README 🥨 </p>
+        <h3> AI, Computers and projects </h3>
       </header>
 
+
       <section id="somary">
+        
         <h2> Life Somary </h2>
         <ol>
-          <li>  <a href="#education" > Education </a> </li>
-            <ul>
-              <li> Master's degree - MVA </li>
-              <li> Betchelor's degree </li>
-            </ul>
           <li> <a href="#work" > Work Experiance </a> </li>
             <ul>
               <li> EPFL </li>
@@ -42,9 +40,145 @@
               <li> Binance x Telegrgam Bot </li>
               <li> Train Tycoon, an old school game </li>
             </ul>
+          <li>  <a href="#education" > Education </a> </li>
+            <ul>
+              <li> Master's degree - MVA </li>
+              <li> Betchelor's degree </li>
+            </ul>
         </ol>
       </section>
 
+
+
+
+
+      <blockquote id="work"> <p> Professional Experiances </p> </blockquote>
+
+      <section>
+        <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
+          <h2 class="inner-block center-img"> 🗺️ EPFL </h2>
+          <h2 class="inner-block center-img"> 📍 Lausanne 🇨🇭 </h2>
+        </div>
+        <p>
+          <u> Objectif: </u> Optimising a path problem with Transformers. The Dial-a-Ride Problem (DaRP) is traditionally solved with Operational Research (OR) methods.
+        </p>
+
+        <p>
+          <u> Method: </u> Using a simulator to generate instances of the Problem, we generated a dataset in order to supervise the training of a multi type data Transformer model. 
+          The data of different types beeing processed to be understood by the model as input.
+        </p>
+
+        <p>
+          <u> Results: </u> On small instances I managed to train optimal solution. 
+          With more testing of data treatment techniques and architectures we could probably archive results on bigger instances and with more flexibility. 
+          The logical continuation of this work would be to aim for a fundation model that understand global path problems and constrains.
+        </p>
+
+      </section>
+
+      <section class="light">
+        <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
+          <h2 class="inner-block center-img" id="berkeley"> 🏎️ University of California </h2>
+          <h2 class="inner-block center-img"> 📍 Berkeley 🇺🇸 </h2>
+        </div>
+
+        <p>
+          <u> Objectif: </u> Training a policy for Autonomous Vehicules (AV) that would smooth out trafic congestion on the highway. Previous Research showed that with a certain pourcentage of AVs in trafic, it is possible to train a policy that reduce the perturbation created by human drivers. 
+          These works trained with data created in simulator, wich has some limitation of realism. The objective hehre is to find a method to train the policy using real world data.
+        </p>
+
+        <p>
+          <u> Method: </u> Using a Offline Reinforcement Learning algorithm, I could train a policy that optimised gaz consumption only with a fixed data set.
+        </p>
+
+        <p>
+          <u> Results: </u> The policy manages to reach a near optimal solution without any interaction with the simulator. 
+          This means that by gathering real world data, we could train a policy that better captures the real world context.
+        </p>
+
+      </section>
+
+      <section class="light">
+        <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
+          <h2 class="inner-block center-img" id="sertis"> 🙈 Sertis </h2>
+          <h2 class="inner-block center-img"> 📍 Bangkok 🇹🇭 </h2>
+        </div>
+
+        <p>
+          <u> Problematic: </u> For a facial recognition device giving access to a sensitive area it is important to avoid any possible bypass. 
+          The main attack beeing the Presentation of the face of an authorized person via a photo or a phone. 
+        </p>
+
+        <p>
+          <u> Work: </u> Our goal was to devolop an efficient and resilient model to detect Presentation Attacks on the device. 
+          In order to do so, we build a adequate dataset and trained a light weighted neural networks to classify images as true faces in front of the camera, or presentation attacks.
+        </p>
+
+        <p>
+          <u> Results: </u> The model prooved to be working flawless in real time on the tablets used in production. 
+        </p>
+
+      </section>
+
+
+      <section class="light">
+        <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
+          <h2 class="inner-block center-img" id="inria"> 🎹  Massive interactive music </h2>
+          <img src="logo-inria.png" alt="Logo universitée PS" class="inner-block" style="max-width: 37%;">
+        </div>
+        <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">  
+          <h3 class="inner-block center-img"> 3 Monthes </h3>
+          <h2 class="inner-block center-img"> 📍 Sophia Antipolis 🇫🇷 </h2>
+        </div>
+
+        <p>
+          <u> Project: </u> Creating an interface for a large collaborative music concert. The public might choose how the music evolves using their smartphones.
+        </p>
+
+        <p>
+          <u> Tasks: </u> Handling synchronisation between the DJ and the audiance's client setup.
+        </p>
+  
+      </section>
+
+
+      
+      <blockquote id="project">
+        <p> Some Projects 👨‍💻 </p>
+      </blockquote>
+
+      <section>
+        <h2> Générative art </h2>
+        <p>
+          Générative Art is using programing and computation as a mean of artistic expression.  
+          A first serie called <i> FluXP </i> generated with a python code that uses Fluid simulations and a buch of colors. This was an experimentation presses with daily publications on my instagram. 
+          Each pieces is cherry-picked from a base of random variation and manual parameter tweaking.
+        </p>
+      </section>
+
+      <section>
+        <h2> RandLA-Net - 3D segmentation </h2>
+        <p>
+          As a school project, in team with <a href=https://github.com/aRI0U>Alain Riou</a> we encoded a PyTorch version of the  <a href=https://github.com/QingyongHu/RandLA-Net>RandLA-Net paper</a>, originaly only available in Tensorflow. In the constrained time and ressources we had, we didn't managed to reproduce the results of the original paper. 
+          Although, our architecture got used from multiple peoples as a working base; with about 50 forks and 250 start on the <a href=https://github.com/aRI0U/RandLA-Net-pytorch> github repository </a>
+        </p>
+      </section>
+
+      <section>
+        <h2> Binance x Telegram Bot </h2>
+        <p>
+          Project aiming to create an easy interface in order to launch automated trading strategies with a Telegram chat bot. 
+          Connnected to the Binance API, we can interact with the portofolio fully automaticly. Still need to apply some sucessful trend srategies in order to make this profitable...
+        </p>
+      </section>
+
+      <section>
+        <h2> Tycoon Trains </h2>
+        <p>
+          A school Project in team with  <a href=https://github.com/aRI0U>Alain Riou </a> and  <a href=https://github.com/nathanlct>Nathan Lichtlé </a>. 
+          Building from scratch a management game about trains and goods transportation. All done with an old school sprite system.
+        </p>
+      </section>
 
       <blockquote id="education">
         <p> Academic Education  </p>
@@ -78,7 +212,7 @@
               <li> Robotics and Path planing </li>
               <li> Lambda Calculus and Cathegories</li>
               <li> Introduction to Verification </li> 
-              <li> <a href="sertis" style="color: green"> Intership Sertis </a> </li>
+              <li> <a href="#sertis" style="color: green"> Intership Sertis </a> </li>
             </ul>
 
           <h2> Batchelor Degree - Computer Science</h2>
@@ -92,7 +226,7 @@
               <li> Formal Logic </li>
               <li> Machine Architecture and Operating Systems </li>
               <li> Programming </li>
-              <li> Research Internship </li>
+              <li> <a href="#inria" style="color: green"> Research Internship @ Inria </a> </li>
             </ul>
 
           <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
@@ -102,111 +236,31 @@
       </section>
       <section>
           <h1> Preparation Class - Massena, Nice </h1>
-          Classes 2014 - 2017
-          <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
+          2014 - 2017
+            <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
 
-            <ul class="repeating-counter-rule4">
-              <li> Maths </li>
-              <li> Maths </li>
-              <li> Maths </li>
-              <li> Maths </li>
-              <li> Maths </li>
-            </ul>
-            <ul class="repeating-counter-rule5">
+              <ul class="repeating-counter-rule4">
+                <li> Maths </li>
+                <li> Maths </li>
+                <li> Maths </li>
+                <li> Maths </li>
+                <li> Maths </li>
+              </ul>
+              <ul class="repeating-counter-rule5">
+                  <li> Physics </li>
                 <li> Physics </li>
-              <li> Physics </li>
-              <li> Physics </li>
-              <li> Physics </li>
-            </ul>
+                <li> Physics </li>
+                <li> Physics </li>
+              </ul>
+            </div>
         
       </section>
 
 
-
-
-      <section id="work">
-        <h2> 🗺️ EPFL </h2>
-        <p>
-          Objectif
-        </p>
-
-        <p>
-          Method
-        </p>
-
-        <p>
-          Results
-        </p>
-
-      </section>
-
-      <section class="light">
-        <h2 id="berkeley"> 🏎️ Berkeley </h2>
-
-        <p>
-          Objective
-        </p>
-
-        <p>
-          Method
-        </p>
-
-        <p>
-          Results
-        </p>
-
-      </section>
-
-      <section class="light">
-
-
-        <h2> 👽 Sertis 🇹🇭 </h2>
-
-        <p>
-          Okay
-        </p>
-
-      </section>
-
-      <section class="light">
-
-
-        <h2> 👽 INRIA 🇹🇭 </h2>
-        <p>
-          Okay
-        </p>
-
-      </section>
-
-      <blockquote>
-        <p> School Projects 👨‍💻 <br>-ENS Paris-saclay</p>
-      </blockquote>
-
-      <section id="project" class="center">
-        <h2> Good old times </h2>
-
-        <h3> 3D vision </h3>
-        <p>
-          Feat Alain
-        </p>
-        <h3> Tycoon </h3>
-        <p>
-          ça dit quoi, ça tourne encore ça ?
-        </p>
-        <h3>  </h3>
-        <p>
-          
-        </p>
-
-      </section>
-
-      <blockquote>
-        <p>Thanks for watching!</p>
-      </blockquote>
-
-
     </main>
 
+    <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+    
     
   </body>
 </html>
