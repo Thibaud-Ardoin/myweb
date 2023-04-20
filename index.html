@@ -7,44 +7,20 @@
     <link rel="icon" type="image/png" href="/assets/favicon-63957c7d.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title> Thibaud </title>
-    <script type="module" crossorigin src="/assets/tools-a1b49dea.js"></script>
-    <link rel="stylesheet" href="/assets/tools-387606ab.css">
+    <script type="module" crossorigin src="/assets/main-4b51405f.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/menu-5c14bc08.js">
+    <link rel="stylesheet" href="/assets/style-387606ab.css">
   </head>
   <body>
     <div id="app"></div>
 
     <canvas id="bg"></canvas>
 
+    
+
     <main>
 
-      <!-- Top Menue -->
-      <div class="topnav">
-        <a class="active" href="#About">About</a>
-        <a href="/resume/">CV</a>
-        <div class="dropdown">
-          <button class="dropbtn">Projects
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href="/projects/">DARP</a>
-            <a href="#">Offline RL</a>
-            <a href="#">PAD</a>
-          </div>
-        </div>
-        <a href="/art/">Art</a>
-      </div>
 
-      <!-- Side Profile -->
-      <div class="sidenav">
-        <img src="/assets/profile-photo-de5863d9.jpg" alt="Profil Photo" class="profile-img" style="max-width: 100%;">
-        <h1 class="side-object"> Thibaud G.R. Ardoin </h1>
-        <ul class="no-bullets center side-object">
-          <li> <a href="mailto:thibaud.ardoin@ens-paris-saclay.fr" class="cool-link"> <i class="fa fa-envelope" style="color:grey"></i> Email </a> </li>
-          <li> <a href="https://github.com/Thibaud-Ardoin" class="cool-link"> <i class="fa fa-github" style="color:black"></i>  github </a> </li>
-          <li> <a href="https://www.linkedin.com/in/thibaud-ardoin-6ab5321a2/" class="cool-link"> <i class="fa fa-linkedin-square" style="color:blue"></i> LinkedIn </a> </li>
-          <li> <a href="https://www.instagram.com/_les_gumes/" class="cool-link"> <i class="fa fa-instagram" style="color: rgb(255, 0, 170)"></i> Instagram </a> </li>
-        </ul>
-      </div>
 
       <!-- <header>
         <h1>Thibaud Ardoin</h1>
@@ -67,6 +43,12 @@
         </p>
 
         <h2>⚠️ This site is still under construction... ⚠️ </h2>
+
+        <p>
+          <i>
+            This website was created using JavaScript and the THREE.js library, also some sprinkels of CSS/HTML
+          </i>
+        </p>
 
       </section>
 
@@ -97,211 +79,7 @@
       </section>
 
 
-      <blockquote id="work"> <p> Professional Experiances </p> </blockquote>
-
-      <section>
-        <h1 class="center"> 🗺️ Dial-a-Ride Problem With Transformers </h1>
-        <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
-          <!-- <h2 class="inner-block center-img">  EPFL </h2> -->          
-          <img src="data:image/png;base64,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" alt="Logo EPFL" class="inner-block1 center-img1" style="max-width: 50%;">
-          <h2 class="inner-block center-img1" style="max-width: 100%"> 📍 Lausanne 🇨🇭 </h2>
-        </div>
-        <p>
-          <u> Objectif: </u> Optimising a path problem with Transformers. The Dial-a-Ride Problem (DaRP) is traditionally solved with Operational Research (OR) methods.
-        </p>
-
-        <p>
-          <u> Method: </u> Using a simulator to generate instances of the Problem, we generated a dataset in order to supervise the training of a multi type data Transformer model. 
-          The data of different types beeing processed to be understood by the model as input.
-        </p>
-
-        <p>
-          <u> Results: </u> On small instances I managed to train optimal solution. 
-          With more testing of data treatment techniques and architectures we could probably archive results on bigger instances and with more flexibility. 
-          The logical continuation of this work would be to aim for a fundation model that understand global path problems and constrains.
-        </p>
-
-      </section>
-
-      <section class="light">
-        <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
-          <h2 class="inner-block center-img" id="berkeley"> 🏎️ University of California </h2>
-          <h2 class="inner-block center-img"> 📍 Berkeley 🇺🇸 </h2>
-        </div>
-
-        <p>
-          <u> Objectif: </u> Training a policy for Autonomous Vehicules (AV) that would smooth out trafic congestion on the highway. Previous Research showed that with a certain pourcentage of AVs in trafic, it is possible to train a policy that reduce the perturbation created by human drivers. 
-          These works trained with data created in simulator, wich has some limitation of realism. The objective hehre is to find a method to train the policy using real world data.
-        </p>
-
-        <p>
-          <u> Method: </u> Using a Offline Reinforcement Learning algorithm, I could train a policy that optimised gaz consumption only with a fixed data set.
-        </p>
-
-        <p>
-          <u> Results: </u> The policy manages to reach a near optimal solution without any interaction with the simulator. 
-          This means that by gathering real world data, we could train a policy that better captures the real world context.
-        </p>
-
-      </section>
-
-      <section class="light">
-        <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
-          <h2 class="inner-block center-img" id="sertis"> 🙈 Sertis </h2>
-          <h2 class="inner-block center-img"> 📍 Bangkok 🇹🇭 </h2>
-        </div>
-
-        <p>
-          <u> Problematic: </u> For a facial recognition device giving access to a sensitive area it is important to avoid any possible bypass. 
-          The main attack beeing the Presentation of the face of an authorized person via a photo or a phone. 
-        </p>
-
-        <p>
-          <u> Work: </u> Our goal was to devolop an efficient and resilient model to detect Presentation Attacks on the device. 
-          In order to do so, we build a adequate dataset and trained a light weighted neural networks to classify images as true faces in front of the camera, or presentation attacks.
-        </p>
-
-        <p>
-          <u> Results: </u> The model prooved to be working flawless in real time on the tablets used in production. 
-        </p>
-
-      </section>
-
-
-      <section class="light">
-        <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
-          <h2 class="inner-block center-img" id="inria"> 🎹  Massive interactive music </h2>
-          <img src="/assets/logo-inria-db0a2f99.png" alt="Logo INRIA" class="inner-block" style="max-width: 37%;">
-        </div>
-        <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">  
-          <h3 class="inner-block center-img"> 3 Monthes </h3>
-          <h2 class="inner-block center-img"> 📍 Sophia Antipolis 🇫🇷 </h2>
-        </div>
-
-        <p>
-          <u> Project: </u> Creating an interface for a large collaborative music concert. The public might choose how the music evolves using their smartphones.
-        </p>
-
-        <p>
-          <u> Tasks: </u> Handling synchronisation between the DJ and the audiance's client setup.
-        </p>
-  
-      </section>
-
-
       
-      <blockquote id="project">
-        <p> Some Projects 👨‍💻 </p>
-      </blockquote>
-
-      <section>
-        <h2> Générative art </h2>
-        <p>
-          Générative Art is using programing and computation as a mean of artistic expression.  
-          A first serie called <i> FluXP </i> generated with a python code that uses Fluid simulations and a buch of colors. This was an experimentation presses with daily publications on my instagram. 
-          Each pieces is cherry-picked from a base of random variation and manual parameter tweaking.
-        </p>
-      </section>
-
-      <section>
-        <h2> RandLA-Net - 3D segmentation </h2>
-        <p>
-          As a school project, in team with <a href=https://github.com/aRI0U>Alain Riou</a> we encoded a PyTorch version of the  <a href=https://github.com/QingyongHu/RandLA-Net>RandLA-Net paper</a>, originaly only available in Tensorflow. In the constrained time and ressources we had, we didn't managed to reproduce the results of the original paper. 
-          Although, our architecture got used from multiple peoples as a working base; with about 50 forks and 250 start on the <a href=https://github.com/aRI0U/RandLA-Net-pytorch> github repository </a>
-        </p>
-      </section>
-
-      <section>
-        <h2> Binance x Telegram Bot </h2>
-        <p>
-          Project aiming to create an easy interface in order to launch automated trading strategies with a Telegram chat bot. 
-          Connnected to the Binance API, we can interact with the portofolio fully automaticly. Still need to apply some sucessful trend srategies in order to make this profitable...
-        </p>
-      </section>
-
-      <section>
-        <h2> Tycoon Trains </h2>
-        <p>
-          A school Project in team with  <a href=https://github.com/aRI0U>Alain Riou </a> and  <a href=https://github.com/nathanlct>Nathan Lichtlé </a>. 
-          Building from scratch a management game about trains and goods transportation. All done with an old school sprite system.
-        </p>
-      </section>
-
-      <blockquote id="education">
-        <p> Academic Education  </p>
-      </blockquote>
-
-      <section>
-        <h1> École Normale Supérieur Paris-Saclay </h1>
-
-          <h2> Master Degree - MVA, Paris</h2>
-          Maths, Vision & Machine Learning 
-          Classes 2019 - 2020
-            <ul class="repeating-counter-rule1">
-              <li> Point Clouds and 3D Modelisation  </li>
-              <li> Deep Learning Practice </li>
-              <li> Multi-scale models and CNNs </li>
-              <li> Algorithms for speech and NLP </li>
-              <li> 3D Computer vision </li>
-              <li> Object recognition & Computer Vision </li> 
-              <li> Medical Image Analysis </li>
-              <li> Reinforcement Learning</li>
-              <li> Deep Learning </li> 
-              <li> <a href="#berkeley" style="color: green"> Intership at UC Berkeley </a> </li>
-            </ul>
-
-            Classes 2018 - 2019
-            <ul class="repeating-counter-rule2">
-              <li> Deep Learning</li>
-              <li> Statistical Learning</li> 
-              <li> Research Methodology</li>
-              <li> Computer Vision</li>
-              <li> Robotics and Path planing </li>
-              <li> Lambda Calculus and Cathegories</li>
-              <li> Introduction to Verification </li> 
-              <li> <a href="#sertis" style="color: green"> Intership Sertis </a> </li>
-            </ul>
-
-          <h2> Batchelor Degree - Computer Science</h2>
-          Classes 2017 - 2018
-            <ul class="repeating-counter-rule3">
-              <li> Algorithmics </li>
-              <li> Computability and Complexity </li>
-              <li> Database Project </li>
-              <li> Discrete Mathematics </li>
-              <li> Formal Languages </li>
-              <li> Formal Logic </li>
-              <li> Machine Architecture and Operating Systems </li>
-              <li> Programming </li>
-              <li> <a href="#inria" style="color: green"> Research Internship @ Inria </a> </li>
-            </ul>
-
-          <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
-            <img src="/assets/logo-ENS-67b733e8.png" alt="Logo ENS-PS" class="inner-block" style="max-width: 35%;">
-            <img src="/assets/logo-Université_Paris-Saclay-7f1e8cd8.png" alt="Logo universitée PS" class="inner-block" style="max-width: 37%;">
-          </div>
-      </section>
-      <section>
-          <h1> Preparation Class - Massena, Nice </h1>
-          2014 - 2017
-            <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
-
-              <ul class="repeating-counter-rule4">
-                <li> Maths </li>
-                <li> Maths </li>
-                <li> Maths </li>
-                <li> Maths </li>
-                <li> Maths </li>
-              </ul>
-              <ul class="repeating-counter-rule5">
-                  <li> Physics </li>
-                <li> Physics </li>
-                <li> Physics </li>
-                <li> Physics </li>
-              </ul>
-            </div>
-        
-      </section>
 
 
     </main>

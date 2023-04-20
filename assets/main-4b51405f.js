@@ -1,0 +1,1 @@
+import"./menu-5c14bc08.js";/* empty css              */var l=document.getElementsByClassName("collapsible"),t;for(t=0;t<l.length;t++)l[t].addEventListener("click",function(){this.classList.toggle("active");var e=this.nextElementSibling;e.style.maxHeight?e.style.maxHeight=null:e.style.maxHeight=e.scrollHeight+"px"});twemoji.parse(document.body);
