@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Thibaud Ardoin*" />
+  <meta name="author" content="Alexandre Alahi" />
+  <title>The Transformer Network for the Dial-a-Ride Problem</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title"><strong>The Transformer Network for the Dial-a-Ride
+Problem</strong></h1>
+<p class="author">Thibaud Ardoin*</p>
+<p class="author">Alexandre Alahi</p>
+</header>
+<h1 class="unnumbered" id="short-summary">SHORT SUMMARY</h1>
+<p>The use of neural networks in combinatorial problems struggles to
+compete with the performances of operational research solutions. In this
+work, our goal is to prove the efficiency of new neural networks to
+solve the Dial-a-Ride problem, a complex routing problem. We propose an
+architecture with self-attention mechanisms that manages to clone
+efficient policies in a simulated environment. Inspired by the
+transformer model, initially designed to learn the subtlety of natural
+languages, we prove that our model is capable of understanding a complex
+logical problem that mixes time, space and sequential information.</p>
+<p><strong>Keywords</strong>: Combinatorial problem, Dial-a-Ride
+problem, Operational research, Representation learning, Supervised
+training, Transformer network</p>
+<h1 id="introduction">INTRODUCTION</h1>
+<p>The aim of the Dial-a-Ride Problem (DARP) is to optimise the
+trajectory of a flexible community transport service. It can be
+considered as a specific application of the Pickup and Delivery with
+Time Window problem (PDTWP). In practice, the Dial-a-Ride buses are
+often used in suburbs of large metropolitan areas to provide a door to
+door transport for peoples with low mobility. This problem formulation
+also applies to food delivery services from multiples restaurants to
+customers, or shared taxis in city centers. Theses demands can be
+modeled as a stream <span
+class="math inline"><em>T</em> = (<em>t</em><sub><em>i</em></sub>)<sub><em>i</em> ∈ [1,<em>m</em>]</sub></span>
+of <span class="math inline"><em>m</em></span> tasks where <span
+class="math inline"><em>t</em><sub><em>i</em></sub> = (<em>p</em><sub><em>u</em><em>p</em></sub>,<em>p</em><sub><em>o</em><em>f</em><em>f</em></sub>,<em>τ</em><sub><em>u</em><em>p</em></sub>,<em>τ</em><sub><em>o</em><em>f</em><em>f</em></sub>)</span>
+gives a time span <span
+class="math inline"><em>τ</em><sub><em>u</em><em>p</em></sub></span> and
+a position <span
+class="math inline"><em>p</em><sub><em>u</em><em>p</em></sub></span> for
+the picking up, and a time span <span
+class="math inline"><em>τ</em><sub><em>o</em><em>f</em><em>f</em></sub></span>
+and a position <span
+class="math inline"><em>p</em><sub><em>o</em><em>f</em><em>f</em></sub></span>
+for the drop-off. In order to fulfill them, there is a set of driving
+agents <span
+class="math inline"><em>A</em> = (<em>a</em><sub><em>i</em></sub><sup>(<em>k</em>)</sup>)<sub><em>i</em> ∈ [1,<em>n</em>]</sub></span>
+of <span class="math inline"><em>n</em></span> agents where <span
+class="math inline"><em>a</em><sub><em>i</em></sub><sup>(<em>k</em>)</sup> = (<em>p</em><sub><em>a</em></sub><sup>(<em>k</em>)</sup>,<em>C</em><sub><em>i</em></sub><sup>(<em>k</em>)</sup>,<em>τ</em><sub><em>f</em><em>r</em><em>e</em><em>e</em></sub>)</span>
+is a vector evolving for each time step <span
+class="math inline"><em>k</em></span> giving a position <span
+class="math inline"><em>p</em><sub><em>a</em></sub><sup>(<em>k</em>)</sup></span>,
+a available capacity <span
+class="math inline"><em>C</em><sub><em>i</em></sub><sup>(<em>k</em>)</sup></span>,
+and <span
+class="math inline"><em>τ</em><sub><em>f</em><em>r</em><em>e</em><em>e</em></sub></span>
+the next time step where the driver can choose a new target. A solution
+of the problem is a stream of assignations <span
+class="math inline"><em>S</em> = (<em>t</em><sub><em>i</em></sub>,<em>n</em><sub><em>i</em></sub>)<sub><em>i</em> ∈ [1,<em>m</em>]</sub></span>
+where each target gets an agent taking care of its trajectory. In order
+to optimize the problem the cost function associated to a working
+solution needs to be minimized. The cost function being the total
+distance driven by the agents.</p>
+<p>This problem has strong constraints, especially concerning the time
+spans, because a passenger should not stay too long in the vehicle after
+having been picked up. The other constraints are logical position
+constraints, a driver needs to be at the position where he can take care
+of a target. Also capacity constraints, the driver should by able to
+load the target. All this constrains set our DARP in the NP-hard space.
+Indeed, it can be reduced from the class of Vehicle Routing Problems
+(VRP) such as the famous Travelling Salesperson Problem (TSP) or from
+constrained scheduling problems.</p>
+<p>This problem mixes different data-types and constraints and therefore
+finding a learnable solution for the DARP would open the path to a lot
+of new applications. In addition, the flexibility of the learning model
+is that we can adapt it to a new task simply by changing the dataset it
+trains on. In the case of a simulation generating this data, the
+constraints and the set of rules have only to be changed.</p>
+<p>From the first known formal descriptions <span class="citation"
+data-cites="Wilson1977"></span> <span class="citation"
+data-cites="JAW1986243"></span> in Operational Research (OR) revues, the
+DARP has known a lot of different propositions. The solutions are
+compiled in two main benchmarks <span class="citation"
+data-cites="Cordeau2007"></span> and <span class="citation"
+data-cites="ho2018survey"></span>. The core of the solutions are
+inspired by propositions working on the simpler TSP, such as the
+Branch-and-cut algorithms, genetic heuristics and local research of
+optimums. The benchmark paper <span class="citation"
+data-cites="ho2018survey"></span> underlines the raising of efficient
+algorithms that are hybrids between multiple OR techniques such as the
+2017 state of the art paper <span class="citation"
+data-cites="MALHEIROS2021105196"></span>. The problem is mainly treated
+either as a Graph problem or either as a time window problem with
+additional constraints. Here, we are not diving into those solutions as
+we are not building on top of them in this article. This explanations
+are just to give the reader a feeling of the historical path of
+literature on this problem.</p>
+<p>On this dataset, a resent work <span class="citation"
+data-cites="Rist2021RF"></span> developed an algorithm called
+<em>Restricted Fragment</em> (RF) that gives state of the art and
+optimal results on most of the instances of the benchmark dataset <span
+class="citation" data-cites="cordeau2006branch"></span>. This method is
+defined as a new Mixed-Integer Programming formulation and
+Branch-and-Cut algorithm. In addition, the authors shared their code
+what enabled us to directly use this policy later on.</p>
+<p>Since 2015, some works apply neural networks to combinatorial
+problems. The first competitive results are only on small instances of
+TSP, <span class="math inline"><em>n</em> &lt; 20</span> <span
+class="citation" data-cites="vinyals2015pointer"></span>. In following
+work, with the use of reinforcement learning the solved instances became
+bigger, <span class="math inline"><em>n</em> &lt; 100</span> <span
+class="citation" data-cites="Bello2017NeuralCO"></span>. Then the
+attention mechanism enlarges the range of the application of neural
+networks to the more general VRP <span class="citation"
+data-cites="Kool2019AttentionLT"></span>. Finally, a recent work uses a
+transformer network <span class="citation"
+data-cites="Bresson2021TheTN"></span> that found optimal solutions to
+TSP instances of size <span class="math inline">50</span> and <span
+class="math inline">100</span>. This encouraging performances are also
+coupled with very long training times and infinite generation of problem
+instances used in a Reinforcement Learning (RL) process.</p>
+<p>The transformer model and the attention mechanism are initially
+applied to Natural Language Processing <span class="citation"
+data-cites="Vaswani2017AttentionIA"></span>. Recent use cases tend to
+proves the efficiency of this mechanism in other domains then NLP <span
+class="citation" data-cites="dosovitskiy2020vit"></span>. The key
+feature of the transformer is a parallel treatment of the information
+which creates an interdependence in the encoded inputs. The expectation
+is in our case is to have a global coherent behavior of all the agents
+regarding the optimization problem.</p>
+<p>To the best of our knowledge, the DARP has not been solve by any
+learning methods yet. This is due to the big complexity gap that comes
+from introducing time and logical constraints in the system. All those
+constraints means that we need to find a problem representation and a
+model that will capture all the complexity of the situation. The
+understanding of the problem has to combine time, space and logical
+information. In this sense, a good model should be able to find a
+working solution and then optimise it while keeping the solution within
+these constrains.</p>
+<h1 id="methodology">METHODOLOGY</h1>
+<p>Our goal is to show that our proposed neural network model is
+capturing all the complexity of the problem and manages to understand
+and reproduce an existing policy.</p>
+<p>In order to generate training data and solutions to the DARP, we
+build a simulator that creates problem instances according to the
+constraints and parameters used in the benchmark dataset <span
+class="citation" data-cites="cordeau2006branch"></span>. In this
+simulator we can run a hand-designed policy that will interact with the
+simulation environment to create all the data of a running dial-a-ride
+system. Then, the data is processed in a way that our neural network
+model can capture all the constraints. Finally, the data is used to
+perfom a supervised training of our model.</p>
+<p>The source code of this work is open
+(https://github.com/Thibaud-Ardoin/Dial-a-Ride). It’s an implementation
+of the environment, the models and the training algorithms.</p>
+<p><span id="fig:data1" class="image placeholder"
+data-original-image-src="images/pipeline2.png"
+data-original-image-title="fig:">Data processing pipeline</span></p>
+<h2 id="data-processing">Data Processing</h2>
+<p>The supervision dataset is composed of the environment observation,
+and the action chosen by the supervision policy. The observations need
+to be translated into a good input for our transformer model. The data
+can be classified into different categories. It comes from 3 different
+<em>sources</em>: the targets, the drivers or the world global
+information. Also this data can be separated in 3 different
+<em>types</em>: spatial, temporal and logical. All the data will be
+processed according to its <em>type</em> and converted into homogene
+embedding vectors of size <span class="math inline">256</span>. Each
+<em>source</em> is then represented by a sum of its 3 different
+<em>types</em> vector as illustrated in Fig. <a href="#fig:data1"
+data-reference-type="ref" data-reference="fig:data1">1</a>.</p>
+<p>The <em>logical information</em> is for example a target or driver’s
+ID, a capacity indicator of a driver or the current transport status of
+the target. This data elements are integer and are encoded into a hash
+function that will output a unique embedding vector of size <span
+class="math inline">256</span> for each combination of values.</p>
+<p>The <em>spatial data</em> are 2 dimensional coordinates in the
+euclidean plan of our problem. They correspond to the positions of the
+drivers and the targets, but also the position of the <em>depot</em>
+which is the unique start and end point of all drivers. Each 2D data
+point will be passed through a unique dense neural network that returns
+an embedding vector. Sharing this MLP through all 2D data guarantees to
+have an equivalent representation for all the positions of our
+problem.</p>
+<p>The <em>time data</em> is also present in the representation of all
+data <em>sources</em>. This data includes the current time step of the
+environment, the time span in which a target can be picked up and
+dropped off and the time at which a driver will be available for a new
+target. This time information for the targets and the drivers is
+represented in relative value to the current time step. The relative
+time information is then processed by a hash function in order to have a
+unique vectored representation for each value.</p>
+<h2 id="model">Model</h2>
+<p>The chosen model is based on the Transformer model encoder described
+as in the original paper <span class="citation"
+data-cites="Vaswani2017AttentionIA"></span>. See a visual description of
+our version in Fig.<a href="#fig:model" data-reference-type="ref"
+data-reference="fig:model">2</a>. The embedding vectors representing the
+environment status are passed trough an encoder with self-attention
+mechanism. The result is an encoded version of our problem of size <span
+class="math inline">(<em>N</em><sub><em>t</em><em>a</em><em>r</em><em>g</em><em>e</em><em>t</em></sub>+<em>N</em><sub><em>d</em><em>r</em><em>i</em><em>v</em><em>e</em><em>r</em><em>s</em></sub>+1<sub><em>w</em><em>o</em><em>r</em><em>l</em><em>d</em></sub>,<em>E</em><em>m</em><em>b</em><em>e</em><em>d</em><em>d</em><em>i</em><em>n</em><em>g</em><em>S</em><em>i</em><em>z</em><em>e</em>)</span>.
+This encoded feature vector is then classified by a single MLP layer to
+output a probability vector of size <span
+class="math inline"><em>N</em><sub><em>t</em><em>a</em><em>r</em><em>g</em><em>e</em><em>t</em></sub> + 1</span>.
+It is the decision for the current driver, either he can be assigned to
+a target or he can choose to do nothing. This architecture is then
+trained with a cross entropy loss according to the choice of the
+supervision policy.</p>
+<p><span id="fig:model" class="image placeholder"
+data-original-image-src="images/Encoder1.png"
+data-original-image-title="fig:">Our Transformer Encoder,<br />
+with <em>BN</em> the batch normalisation</span></p>
+<h2 id="supervision-data">Supervision data</h2>
+<p>Two different supervision policies are used, the <em>nearest
+neighbour</em> strategy (NN) and the <em>Restricted Fragment</em>
+algorithm (RF) <span class="citation" data-cites="Rist2021RF"></span>
+described above. The NN strategy is a naive strategy that chooses the
+nearest possible assignation at all time steps. It is one of the
+simplest strategies to implement but still needs a complete
+understanding of the problem and its constraints. The RF strategy is way
+more complex and uses a hybrid combination of OR techniques. It archives
+state-of-the-art results in most of the <em>cordeau2006</em> datasets
+instances. It is also computationally more expensive then the NN
+strategy and that cost is exponential in the size of the problem
+instance. This last point probably makes this strategy unusable in real
+case scenarios. Especially when the time constrains are more flexible,
+which increases the possible branches of the strategy and multiplies the
+complexity.</p>
+<p>The supervision dataset is a set <span
+class="math inline">𝔻<sub><em>s</em><em>u</em><em>p</em></sub> = (<em>O</em><sub><em>i</em></sub>,<em>π</em><sub><em>s</em><em>u</em><em>p</em></sub>(<em>O</em><sub><em>i</em></sub>))<sub><em>i</em> ∈ |𝔻<sub><em>s</em><em>u</em><em>p</em></sub>|</sub></span>
+where <span
+class="math inline"><em>π</em><sub><em>s</em><em>u</em><em>p</em></sub></span>
+is the supervision function applied to observations <span
+class="math inline"><em>O</em><sub><em>i</em></sub></span> of the
+environment. In order to generate a supervision dataset of 10 million
+points with RF, 30 hours are needed. The time reduces to 10 hours for
+the NN function.</p>
+<p>In addition, we added data-augmentation functions in a pre-processing
+step of the training data. The aim is to create more variety for model,
+without changing the validity of the supervision function. Therefore,
+the augmentations are random transformations that conserve the ordering
+of the distances, applied in the time and position data.</p>
+<h1 id="results-and-discussion">RESULTS AND DISCUSSION</h1>
+<p>The goal is to evaluate our model in its capability of reproducing a
+policy on the DARP, by capturing the complexity of the problem. In
+addition, we want to show optimized results on a recognised dataset and
+compare to other algorithms with conventional metrics.</p>
+<h2 id="evaluation-on-benchmark-datasets">Evaluation on Benchmark
+datasets</h2>
+<p>They are two traditional benchmark datasets on the simplest DARP
+version: <span class="citation" data-cites="Cordeau2003"></span> and
+<span class="citation" data-cites="cordeau2006branch"></span>. The first
+one has loose time constraints and is mainly used to compare heuristic
+solutions. It works fine with our model, but our aim is to clone an
+exact policy and the RF algorithm is computationally too expensive for
+it. Therefore, we concentrated on the second dataset, used to compare
+exact solutions.</p>
+<p>The open dataset <em>Cordeau2006</em> has been used in more then a
+dozen important DARP papers for comparing results. It is made of
+simulated data, in an euclidean space and contain no further constraints
+then the basic DARP formulation described above. The comparison metric
+is <span class="math inline"><em>G</em><em>a</em><em>p</em></span>: the
+average deviation to best known solution (BKS). As a preliminary result,
+we choose to compare the performances on a small instance of the
+dataset, called <em>a2-16</em> it contains 2 drivers and 16 targets.</p>
+<h2 id="results">Results</h2>
+<p>The results are described in the Table <a href="#tab:table1"
+data-reference-type="ref" data-reference="tab:table1">1</a>. The model
+manages to reproduce almost perfectly the NN strategy (<span
+class="math inline">99.51%</span> accuracy on test data). This policy is
+of course completely sub-optimal as is the NN strategy in the first
+place. It gives a <span
+class="math inline"><em>G</em><em>A</em><em>P</em></span> of <span
+class="math inline">70%</span> on the benchmark dataset.</p>
+<p>In parallel, the policy cloning of the RF strategy is imperfect. It
+manages to reproduce <span class="math inline">92.4%</span> of its
+actions (in a balanced proportion of all actions classes). This lead
+also to a minimum <span
+class="math inline"><em>G</em><em>A</em><em>P</em></span> of <span
+class="math inline">2.8%</span> on the benchmark dataset. The results
+described in the benchmark <span class="citation"
+data-cites="ho2018survey"></span> perform with a GAP between <span
+class="math inline">0.4%</span> to <span class="math inline">0%</span>,
+meaning that our GAP is not competitive yet.</p>
+<div class="center">
+<p><span id="tab:table1" label="tab:table1"></span></p>
+<div id="tab:table1">
+<table>
+<caption>Metric results of our model</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Supervision function</strong></th>
+<th style="text-align: center;"><strong>GAP on R5</strong></th>
+<th style="text-align: center;"><strong>mean GAP on random</strong></th>
+<th style="text-align: right;"><strong>Accuracy</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Nearest Neighbour</td>
+<td style="text-align: center;"><span
+class="math inline"> ∼ 70%</span></td>
+<td style="text-align: center;"><span
+class="math inline"> ∼ 100%</span></td>
+<td style="text-align: right;"><span
+class="math inline"><strong>99.51%</strong></span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Restricted Fragment</td>
+<td style="text-align: center;"><span
+class="math inline"><strong>2.80%</strong></span></td>
+<td style="text-align: center;"><span
+class="math inline">2.78%</span></td>
+<td style="text-align: right;"><span
+class="math inline">92.4%</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<h2 id="interpretation">Interpretation</h2>
+<p>The almost perfect cloning of the naive NN strategy proves that the
+logical problem is perfectly understood by our model. Therefore, the
+data processing of the different data sources and types are coherent and
+matches the model architecture.</p>
+<p>The results of the RF strategy cloning are mixed. On one side, the
+training converges to a GAP of <span class="math inline">2.8%</span> to
+the optimal strategy. This is a enormous gain in performance compared to
+a naive strategy such as NN. It shows that this supervised training
+manages to not only capture the constraints and the logic of the
+problem, but also manages to optimise the solutions according to the
+distance metric. On the other hand, this is still a large GAP compared
+to other solutions in the literature.</p>
+<p>The missing <span class="math inline">7.2%</span> accuracy on the RF
+strategy cloning could be attributed to different factors. The main
+reason is that the strategy may be too subtle to be understood as a
+inferred response to the data. The RF algo is building a fragment graph
+of hundred-thousands of points as a intermediate information bases.
+Therefore, it might choose strategies according to some prior known
+construction of this graph that our model could not infer. With a direct
+optimisation of our model via a target metric such as in RL, we might
+avoid this problem and let the model construct its own representation of
+the problem.</p>
+<h2 id="limitations">Limitations</h2>
+<p>A clear computational limitation of the transformer model is due to
+the quadratic complexity in the length of the input sequence. In the
+case of very large problem instances, the Transformer might be a slow
+solution, and therefore be difficult to train. To tackle this
+limitation, we could degrade the size of the embedding or find a shorter
+representation of the problem. Note that the other good solutions in the
+literature also have trouble with large problem instances.</p>
+<p>As future work, we need to confirm theses promising results about the
+DARP on bigger instances, on problem versions with more constrains and
+on other complex problems.</p>
+<h1 id="conclusions">CONCLUSIONS</h1>
+<p>Summarizing this work is needed to get our model in the top solutions
+of the DARP, although our results prove the feasibility of using a
+neural network in a new complex domain. It not only manages to capture
+the logic and the constraints of DARP but it also archived optimized
+results on a benchmark dataset. If it is possible to improve these first
+results and expand the scope of performance of this method, it might be
+a real game changer for the OR domain. It might lead to a new domain of
+successful application for AI and the transformer.</p>
+</body>
+</html>
