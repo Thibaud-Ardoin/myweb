@@ -5,14 +5,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
     
-    <link rel="icon" type="image/png" href="/assets/favicon-63957c7d.ico">
+    <link rel="icon" type="image/png" href="/myweb/assets/favicon-63957c7d.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title> Curiculum Vitae </title>
-    <script type="module" crossorigin src="/assets/menu-22065347.js"></script>
-    <script type="module" crossorigin src="/assets/tools-020b8cb4.js"></script>
-    <link rel="stylesheet" href="/assets/menu-c48754ca.css">
-    <link rel="stylesheet" href="/assets/index-2f8875e6.css">
+    <script type="module" crossorigin src="/myweb/assets/menu-d5c02e0c.js"></script>
+    <script type="module" crossorigin src="/myweb/assets/main-0ea4827b.js"></script>
+    <link rel="stylesheet" href="/myweb/assets/menu-5c3e1a59.css">
+    <link rel="stylesheet" href="/myweb/assets/index-d5ba1877.css">
   </head>
   <body>
     <div id="app"></div>
@@ -27,7 +27,7 @@
         <!-- <blockquote id="work"> <p> Research Experiences </p> </blockquote> -->
 
         <!-- Lausanne -->
-        <section class="cv-elmt left-elmt">
+        <section class="cv-elmt left-elmt" id="darp">
           <div class="header">
             <h2 class="project-title">🗺️ Dial-a-Ride Problem With Transformers</h2>
             <div class="prior-info">
@@ -53,7 +53,7 @@
 
 
         <!-- Berkeley -->
-        <section class="cv-elmt right-elmt">
+        <section class="cv-elmt right-elmt" id="berkely">
           <div class="header">
             <h2 class="project-title"> 🏎️ Offline Reinforcement Learning for trafic </h2>
             <div class="prior-info">
@@ -61,7 +61,7 @@
               <p class="location"> Berkeley 🇺🇸 </p>
             </div>
             <div class="logo">
-              <img src="/assets/logo-Berkeley2-87e8fa24.png" alt="Logo UC Berkely" style="max-width: 100%;">
+              <img src="/myweb/assets/logo-Berkeley2-87e8fa24.png" alt="Logo UC Berkely" style="max-width: 100%;">
             </div>
 
           </div>
@@ -80,15 +80,15 @@
 
 
         <!-- Sertis -->
-        <section class="cv-elmt left-elmt">
+        <section class="cv-elmt left-elmt" id="sertis">
           <div class="header">
-            <h2 class="project-title"> 🙈 Presentation Attack Detection on facial recognition device </h2>
+            <h2 class="project-title"> 🙈 Presentation Attack Detection </h2>
             <div class="prior-info">
               <p class="date">Feb. 2019 <br> Jui. 2019</p>
               <p class="location"> Bangkok 🇹🇭 </p>
             </div>
             <div class="logo">
-              <img src="/assets/logo-sertis2-7ce7b818.png" alt="Logo Sertis" style="max-width: 100%;">
+              <img src="/myweb/assets/logo-sertis2-7ce7b818.png" alt="Logo Sertis" style="max-width: 100%;">
             </div>
 
           </div>
@@ -105,7 +105,7 @@
         </section>
 
         <!-- Inria -->
-        <section class="cv-elmt right-elmt">
+        <section class="cv-elmt right-elmt" id="inria">
           <div class="header">
             <h2 class="project-title"> 🎹  Massive interactive music</h2>
             <div class="prior-info">
@@ -113,7 +113,7 @@
             </div>
             <div class="logo">
               <p class="date"> Mar. 2018 <br> Aug. 2018 </p>
-              <img src="/assets/logo-inria-db0a2f99.png" alt="Logo EPFL" style="max-width: 100%;">
+              <img src="/myweb/assets/logo-inria-db0a2f99.png" alt="Logo EPFL" style="max-width: 100%;">
             </div>
           </div>
 
@@ -132,10 +132,11 @@
 
 
       <blockquote id="education">
-        <p> Academic Education  </p>
+        <p> Education  </p>
       </blockquote>
 
-      <section>
+      <!-- ENS -->
+      <section class="cv-elmt left-elmt" id="ens">
         <h1> École Normale Supérieur Paris-Saclay </h1>
 
           <h2> Master Degree - MVA, Paris</h2>
@@ -181,11 +182,12 @@
             </ul>
 
           <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
-            <img src="/assets/logo-ENS-67b733e8.png" alt="Logo ENS-PS" class="inner-block" style="max-width: 35%;">
-            <img src="/assets/logo-Université_Paris-Saclay-7f1e8cd8.png" alt="Logo universitée PS" class="inner-block" style="max-width: 37%;">
+            <img src="/myweb/assets/logo-ENS-67b733e8.png" alt="Logo ENS-PS" class="inner-block" style="max-width: 35%;">
+            <img src="/myweb/assets/logo-Université_Paris-Saclay-7f1e8cd8.png" alt="Logo universitée PS" class="inner-block" style="max-width: 37%;">
           </div>
       </section>
-      <section>
+      <section class="cv-elmt right-elmt">
+          <!-- <div class="header"> -->
           <h1> Preparation Class - Massena, Nice </h1>
           2014 - 2017
             <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
@@ -211,5 +213,7 @@
     </main>
     <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
     
+     
+
   </body>
 </html>
