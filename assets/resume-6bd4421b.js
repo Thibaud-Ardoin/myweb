@@ -1,4 +1,4 @@
-import"./menu-904d586e.js";import{ImprovedNoise as ql}from"https://cdn.skypack.dev/three@0.135.0/examples/jsm/math/ImprovedNoise";var ia=document.getElementsByClassName("collapsible"),Qi;for(Qi=0;Qi<ia.length;Qi++)ia[Qi].addEventListener("click",function(){this.classList.toggle("active");var o=this.nextElementSibling;o.style.maxHeight?o.style.maxHeight=null:o.style.maxHeight=o.scrollHeight+"px"});twemoji.parse(document.body);/**
+import"./menu-29cb1ff6.js";import{ImprovedNoise as ql}from"https://cdn.skypack.dev/three@0.135.0/examples/jsm/math/ImprovedNoise";var ia=document.getElementsByClassName("collapsible"),Qi;for(Qi=0;Qi<ia.length;Qi++)ia[Qi].addEventListener("click",function(){this.classList.toggle("active");var o=this.nextElementSibling;o.style.maxHeight?o.style.maxHeight=null:o.style.maxHeight=o.scrollHeight+"px"});twemoji.parse(document.body);/**
  * @license
  * Copyright 2010-2023 Three.js Authors
  * SPDX-License-Identifier: MIT
